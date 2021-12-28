@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from "axios";
 import PropTypes from 'prop-types';
 import './EditingForm.scss';
 
@@ -9,19 +10,26 @@ const EditingForm = () => {
     setFile(e.target.files[0]);
   }
 
-  const onSublit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    
+    const data = new FormData();
+    data.append('file', file);
+    axios.post('//localhost:8000/upload', data)
+      .then((e) => {
+        console.log(e);
+      }).catch((err) => {
+        console.error('Error', err);
+      })
   }
 
   return (
-    <form>
+    <form onSubmit={onSubmit}>
       <label>
         Name:
         <input
           name="name"
           type="text"
-          onChange={handleFileInput } />
+          onChange={() => { }} />
       </label>
       <br />
       <label>
@@ -29,15 +37,15 @@ const EditingForm = () => {
         <input
           name="details"
           type="text"
-          onChange={handleFileInput } />
+          onChange={() => { }} />
       </label>
       <label>
         Photo:
         <div className="file-uploader">
-          <input type="file" onChange={handleFileInput } />
-          <button>nothing</button>
+          <input type="file" onChange={handleFileInput} />
         </div>
       </label>
+      <button>nothing</button>
     </form>
   );
 }
