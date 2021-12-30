@@ -7,7 +7,7 @@ return (
     <div className="inspection-wrapper">
         <div className='inspection-wrapper__name'>{name}</div>
         {details && <div className='inspection-wrapper__details'>{details}</div>}
-        {photo && <img className='inspection-wrapper__image' src={photo} alt="issue-apperance" />}
+        {photo && <img className='inspection-wrapper__image' src={`//localhost/8000{$photo.filename}`} alt="issue-apperance" />}
     </div>
 )}
 
