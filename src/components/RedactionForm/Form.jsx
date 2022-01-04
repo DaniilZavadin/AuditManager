@@ -1,43 +1,44 @@
 import React, { useState } from 'react';
-// import axios from "axios";
-// import { toast } from 'react-toastify'
-// import Inspection from '../Inspection/Inspection'
+import axios from "axios";
+import { setNoteData } from '../../store/operations';
+import { toast } from 'react-toastify'
+import Inspection from '../Inspection/Inspection'
 import './Form.scss';
 
 const Form = ({ onSuccess }) => {
-  const [formData, setFormData] = useState({ photo: null, name: null, details: null })
+  const [file, setFile] = useState(null)
 
   const handleFileInput = (e) => {
-    setFormData({});
-    console.log(formData);
+    console.log(e.target.value);
+    // setFile()
   }
 
-  // const onSubmit = (e) => {
-  //   e.preventDefault();
-  //   const data = new FormData();
-  //   if (file.type.includes('image')) data.append('file', file);
-  //   else {
-  //     toast.error('Woops! Something is wrong')
-  //     return
-  //   }
-  //   axios.post('//localhost:8000/upload', data)
-  //     .then(res => {
-  //       toast.success('Note added to you inspection!')
-  //       onSuccess(res.data)
-  //     }).catch((err) => {
-  //       console.error('Error', err)
-  //     })
-
-  //   return (<Inspection
-  //     name={e.target.name.value}
-  //     details={e.target.details.value}
-  //     photo={`//localhost:8000/{$}`}
-  //   />)
-  // }
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const creationForm = Document.getElementById('creationForm')
+    const data = new FormData(creationForm);
+    if (file.type.includes('image')) data.append('file', file);
+    else {
+      toast.error('Woops! Something is wrong')
+      return
+    }
+    axios.post('//localhost:8000/upload', data)
+      .then(res => {
+        toast.success('Note added to you inspection!')
+        onSuccess(res.data)
+      }).catch((err) => {
+        console.error('Error', err)
+      })
+    console.log(data);
+    // setNoteData({
+    //   name: e.target.name.value,
+    //   details: e.target.details.value,
+    //   photo: `//localhost:8000/${}`
+    // })
+  }
 
   return (
-    // <form onSubmit={onSubmit}>
-    <form>
+    <form id='creationForm' onSubmit={onSubmit}>
       <label>
         Name:
         <input
@@ -53,13 +54,15 @@ const Form = ({ onSuccess }) => {
           type="text"
           onChange={() => { }} />
       </label>
+      <br />
       <label>
         Photo:
-        <div className="file-uploader">
-          <input type="file" onChange={handleFileInput} />
-        </div>
+        <input
+          type="file"
+          onChange={handleFileInput} />
       </label>
-      <button>nothing</button>
+      <br />
+      <button>Create</button>
     </form>
   );
 }

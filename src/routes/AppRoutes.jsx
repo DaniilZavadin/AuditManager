@@ -2,8 +2,8 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Authorization from '../pages/Authorization';
 import InspectionsList from '../pages/InspectionsList';
-import InspectionDetails from '../pages/InspectionDetails';
-import InspectionEdit from '../pages/InspectionEdit';
+import InspectionDetails from '../pages/InspectionNote';
+import InspectionEdit from '../pages/NoteEdit';
 
 const AppRoutes = () => {
     return (
