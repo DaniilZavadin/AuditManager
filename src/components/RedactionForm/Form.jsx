@@ -9,32 +9,43 @@ const Form = ({ onSuccess }) => {
   const [file, setFile] = useState(null)
 
   const handleFileInput = (e) => {
-    console.log(e.target.value);
-    // setFile()
+    setFile(e.target.files[0])
   }
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const creationForm = Document.getElementById('creationForm')
-    const data = new FormData(creationForm);
+    const name = e.target.name.value;
+    const details = e.target.details.value;
+
+    axios.post('//localhost:8000/uploadjson', {
+      name: name,
+      details: details,
+      photo: `aaa`
+    })
+
+    //file uploading method
+    const data = new FormData();
     if (file.type.includes('image')) data.append('file', file);
     else {
       toast.error('Woops! Something is wrong')
       return
     }
-    axios.post('//localhost:8000/upload', data)
-      .then(res => {
-        toast.success('Note added to you inspection!')
-        onSuccess(res.data)
-      }).catch((err) => {
-        console.error('Error', err)
-      })
-    console.log(data);
-    // setNoteData({
-    //   name: e.target.name.value,
-    //   details: e.target.details.value,
-    //   photo: `//localhost:8000/${}`
-    // })
+    // axios.post('//localhost:8000/uploadfile', data)
+      // - - - - - - - - - -
+      // .then(res => {
+        // console.log(res.data);
+        // axios.post('//localhost:8000/uploadjson', {
+        //   name: name,
+        //   details: details,
+        //   photo: `${res.path}`
+        // })
+        //   .then(res => {
+        //     toast.success('Note added to you inspection!')
+        //     onSuccess(res.data)
+        //   }).catch((err) => {
+        //     console.error('Error', err)
+        //   })
+      // })
   }
 
   return (

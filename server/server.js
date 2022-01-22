@@ -2,33 +2,45 @@ const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
 const fs = require('fs');
-
+const bodyParser = require('body-parser');
 const app = express();
+
 app.use(cors());
-// const storage = multer.diskStorage({
-//     destination: (req, file, callback) => {
-//         callback(null, 'public')
-//     },
-//     filename: (req, file, callback) => {
-//         callback(null, Date.now() + '-' + file.originalname)
-//     }
-// })
+const jsonParser = bodyParser.json()
 
-// const upload = multer({ storage }).single('file');
-// app.post('/uploadfile', (req, res) => {
-//     upload(req, res, (err) => {
-//         if (err) return res.status(500).json(err)
-//         return res.status(200).send(req.file)
-//     })
-// })
-
-app.post('/uploadjson', (req, res) => {
-    let name = 'data.json';
-    var init = JSON.parse(fs.readFileSync(name).toString());
-    init = { ...init, 'prikol': true }
-    fs.writeFileSync(name, JSON.stringify(init));
+const storage = multer.diskStorage({
+    destination: (req, file, callback) => {
+        callback(null, 'public')
+    },
+    filename: (req, file, callback) => {
+        callback(null, Date.now() + '-' + file.originalname)
+    }
 })
+const upload = multer({ storage }).single('file');
 
 app.listen(8000, () => {
     console.log("running on 8000");
+})
+
+
+
+
+app.post('/uploadfile', (req, res) => {
+    upload(req, res, (err) => {
+        if (err) return res.status(500).json(err)
+        return res.status(200).send(req.file)
+    })
+})
+
+app.post('/uploadjson', jsonParser, (req, res) => {
+    const filename = 'data.json';
+    fs.readFile(filename, (err, data) => {
+        if (err) throw err
+        const inspecArr = JSON.parse(data);
+        console.log(inspecArr);
+        // console.log(req);
+        inspecArr.push(req.body);
+        console.log(inspecArr);
+    });
+    return res.status(200).send('JSON UPDATED')
 })

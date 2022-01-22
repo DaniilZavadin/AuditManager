@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
-import EditingForm from '../components/RedactionForm/Form';
+import Form from '../components/RedactionForm/Form';
 
 const InspectionsList = () => {
     const getInspectionsData = () => {
         return (
             <div className="inspections-container">
                 <Link to="/inspections"> &lt; </Link>
-                <EditingForm />
+                <Form />
             </div >
         )
     }
