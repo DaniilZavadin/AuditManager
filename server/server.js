@@ -36,11 +36,12 @@ app.post('/uploadjson', jsonParser, (req, res) => {
     const filename = 'data.json';
     fs.readFile(filename, (err, data) => {
         if (err) throw err
-        const inspecArr = JSON.parse(data);
-        console.log(inspecArr);
-        // console.log(req);
-        inspecArr.push(req.body);
-        console.log(inspecArr);
+        const noteDataArr = JSON.parse(data);
+        noteDataArr.push(req.body)
+        fs.writeFile(filename, JSON.stringify(noteDataArr), (err) => {
+            if (err) throw err;
+        });
     });
+
     return res.status(200).send('JSON UPDATED')
 })

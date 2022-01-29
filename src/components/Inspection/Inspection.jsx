@@ -13,7 +13,7 @@ return (
 
 Inspection.defaultProps = {
     name: 'Unknown',
-    photo: "/unknown.jpg",
+    photo: "./undefined.jpg",
     details: 'Unknown',
   };
 

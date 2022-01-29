@@ -3,9 +3,9 @@ import axios from "axios";
 import { setNoteData } from '../../store/operations';
 import { toast } from 'react-toastify'
 import Inspection from '../Inspection/Inspection'
-import './Form.scss';
+import './NoteForm.scss';
 
-const Form = ({ onSuccess }) => {
+const NoteForm = ({ onSuccess }) => {
   const [file, setFile] = useState(null)
 
   const handleFileInput = (e) => {
@@ -17,12 +17,6 @@ const Form = ({ onSuccess }) => {
     const name = e.target.name.value;
     const details = e.target.details.value;
 
-    axios.post('//localhost:8000/uploadjson', {
-      name: name,
-      details: details,
-      photo: `aaa`
-    })
-
     //file uploading method
     const data = new FormData();
     if (file.type.includes('image')) data.append('file', file);
@@ -30,22 +24,20 @@ const Form = ({ onSuccess }) => {
       toast.error('Woops! Something is wrong')
       return
     }
-    // axios.post('//localhost:8000/uploadfile', data)
-      // - - - - - - - - - -
-      // .then(res => {
-        // console.log(res.data);
-        // axios.post('//localhost:8000/uploadjson', {
-        //   name: name,
-        //   details: details,
-        //   photo: `${res.path}`
-        // })
-        //   .then(res => {
-        //     toast.success('Note added to you inspection!')
-        //     onSuccess(res.data)
-        //   }).catch((err) => {
-        //     console.error('Error', err)
-        //   })
-      // })
+    axios.post('//localhost:8000/uploadfile', data)
+      .then(res => {
+        axios.post('//localhost:8000/uploadjson', {
+          name: name,
+          details: details,
+          photo: Date.now() + res.data.filename
+        })
+          .then(res => {
+            toast.success('Note added to you inspection!')
+            onSuccess(res.data)
+          }).catch((err) => {
+            console.error('Error', err)
+          })
+      })
   }
 
   return (
@@ -78,4 +70,4 @@ const Form = ({ onSuccess }) => {
   );
 }
 
-export default Form;
+export default NoteForm;
