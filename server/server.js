@@ -17,12 +17,11 @@ const storage = multer.diskStorage({
     }
 })
 const upload = multer({ storage }).single('file');
+const filename = 'data.json';
 
 app.listen(8000, () => {
     console.log("running on 8000");
 })
-
-
 
 
 app.post('/uploadfile', (req, res) => {
@@ -32,16 +31,34 @@ app.post('/uploadfile', (req, res) => {
     })
 })
 
-app.post('/uploadjson', jsonParser, (req, res) => {
-    const filename = 'data.json';
+app.post('/addinspection', jsonParser, (req, res) => {
     fs.readFile(filename, (err, data) => {
         if (err) throw err
-        const noteDataArr = JSON.parse(data);
-        noteDataArr.push(req.body)
-        fs.writeFile(filename, JSON.stringify(noteDataArr), (err) => {
+        const inspecDataArr = JSON.parse(data);
+        inspecDataArr.push(req.body)
+        fs.writeFile(filename, JSON.stringify(inspecDataArr), (err) => {
             if (err) throw err;
         });
     });
 
-    return res.status(200).send('JSON UPDATED')
+    return res.status(200).send('ADD INSPECTION')
 })
+
+app.post('/addnote', jsonParser, (req, res) => {
+    fs.readFile(filename, (err, data) => {
+        const inspecDataArr = JSON.parse(data);
+        if (err) throw err
+
+        const toEdit = inspecDataArr.findIndex(el => el.city === req.body.id);
+        inspecDataArr[toEdit].notes.push({
+            name: req.body.name,
+            details: req.body.details,
+            photo: req.body.photo
+        })
+        fs.writeFile(filename, JSON.stringify(inspecDataArr), (err) => {
+            if (err) throw err;
+        });
+    })
+    return res.status(200).send('ADD NOTE')
+});
+

@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
 import axios from "axios";
-import { setNoteData } from '../../store/operations';
 import { toast } from 'react-toastify'
-import Inspection from '../Inspection/Inspection'
+import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+// import { getInspectionId } from '../../store/selectors'
 import './NoteForm.scss';
 
-const NoteForm = ({ onSuccess }) => {
+const NoteForm = () => {
+  const navigate = useNavigate()
   const [file, setFile] = useState(null)
 
   const handleFileInput = (e) => {
     setFile(e.target.files[0])
   }
+
+  const id = useSelector((state) => state.inspectionId)
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -26,14 +30,15 @@ const NoteForm = ({ onSuccess }) => {
     }
     axios.post('//localhost:8000/uploadfile', data)
       .then(res => {
-        axios.post('//localhost:8000/uploadjson', {
+        axios.post('//localhost:8000/addnote', {
+          id: id,
           name: name,
           details: details,
           photo: Date.now() + res.data.filename
         })
           .then(res => {
             toast.success('Note added to you inspection!')
-            onSuccess(res.data)
+            navigate(-1)
           }).catch((err) => {
             console.error('Error', err)
           })

@@ -1,20 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom'
 import Inspection from '../components/Inspection/Inspection';
 
 const InspectionsList = () => {
 
-    useEffect(() => {})
-
-    const getInspectionsData = () => {
-        return (
-            <div className="inspections-container">
-                <Link to="/createinspection">+</Link>
-                <Inspection name={'Kiev'} details={'Lorem ipsum dolor, sit amet consectetur Est temporibus nobis voluptatibus ad quo.'} />
-            </div >
-        )
-    }
-    return (getInspectionsData());
+    return (<div className="inspections-container">
+        <Link to="/createinspection">+</Link>
+        <Inspection city={'Kiev'} desc={'Lorem ipsum dolor, sit amet consectetur Est temporibus nobis voluptatibus ad quo.'} inspector={"Alan Wake"} />
+        <Inspection city={'Lviv'} desc={'Lorem ipsum dolor, sit amet consectetur Est temporibus nobis voluptatibus ad quo.'} inspector={"Aleksandr Krashko"} />
+    </div >)
 }
 
 export default InspectionsList;
