@@ -62,3 +62,9 @@ app.post('/addnote', jsonParser, (req, res) => {
     return res.status(200).send('ADD NOTE')
 });
 
+app.get('/data', function (req, res) {
+    fs.readFile(filename, (err, data) => {
+        const dataList = JSON.parse(data);
+        res.send(dataList)
+    })
+});
