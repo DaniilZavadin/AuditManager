@@ -1,22 +1,22 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom'
-import { setInspectionId } from '../../store/operations'
-import { useDispatch } from 'react-redux';
+import { setCurrentInspection } from '../../store/operations'
+import { useDispatch } from 'react-redux'
 import './Inspection.scss';
 
-const Inspection = ({ city, desc, inspector }) => {
+const Inspection = ({ city, description, inspector }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch()
 
     const moveToNotes = () => {
-        dispatch(setInspectionId(city))
+        dispatch(setCurrentInspection({ city: city, description: description, inspector: inspector }))
         navigate('/noteslist')
     }
 
     return (
         <div className="inspection-wrapper" onClick={moveToNotes}>
             <div className='inspection-wrapper__name'>{city}</div>
-            <div className='inspection-wrapper__name'>{desc}</div>
+            <div className='inspection-wrapper__name'>{description}</div>
             <div className='inspection-wrapper__name'>{inspector}</div>
         </div>
     )

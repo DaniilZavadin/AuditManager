@@ -1,16 +1,16 @@
-import { SET_NOTE_DATA, SET_INSPECTION_ID } from './types';
+import { SET_INSPECTIONS_DATA, SET_CURRENT_INSPECTION } from './types';
 
 const initialState = {
-    inspectionId: null,
-    notesData: null
+    inspectionsData: [],
+    currentInspection: {}
 };
 
 export const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case SET_NOTE_DATA:
-            return { ...state, noteData: action.payload };
-        case SET_INSPECTION_ID:
-            return { ...state, inspectionId: action.payload };
+        case SET_INSPECTIONS_DATA:
+            return { ...state, inspectionsData: action.payload };
+        case SET_CURRENT_INSPECTION:
+            return { ...state, currentInspection: action.payload };
         default: return state
     }
 }

@@ -1,8 +1,8 @@
-import { SET_NOTE_DATA, SET_INSPECTION_ID } from "./types";
+import { SET_INSPECTIONS_DATA, SET_CURRENT_INSPECTION } from "./types";
 
-export const setNoteData = (data) => (dispatch) => {
-  dispatch({ type: SET_NOTE_DATA, payload: data });
+export const setInspectionsData = (data) => (dispatch) => {
+  dispatch({ type: SET_INSPECTIONS_DATA, payload: data });
 };
-export const setInspectionId = (data) => (dispatch) => {
-  dispatch({ type: SET_INSPECTION_ID, payload: data });
+export const setCurrentInspection = (data) => (dispatch) => {
+  dispatch({ type: SET_CURRENT_INSPECTION, payload: data });
 };

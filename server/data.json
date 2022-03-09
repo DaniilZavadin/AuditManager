@@ -1,1 +1,26 @@
-[{"city":"Poltava","description":"Fire Safety","inspector":"Simon Schlatt","notes":[]},{"city":"Lviv","description":"Water supply","inspector":"Oleg Khmara","notes":[]},{"city":"Kiev","description":"Gas issues","inspector":"Juan Guesso","notes":[]}]
+[
+    {
+        "city": "Poltava",
+        "description": "Fire Safety",
+        "inspector": "Simon Schlatt",
+        "notes": []
+    },
+    {
+        "city": "Lviv",
+        "description": "Water supply",
+        "inspector": "Oleg Khmara",
+        "notes": []
+    },
+    {
+        "city": "Kiev",
+        "description": "Gas issues",
+        "inspector": "Juan Guesso",
+        "notes": []
+    },
+    {
+        "city": "Kharkiv",
+        "description": "Electric equipment malfunction",
+        "inspector": "Matt Stuart",
+        "notes": []
+    }
+]
