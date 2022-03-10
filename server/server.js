@@ -49,10 +49,10 @@ app.post('/addnote', jsonParser, (req, res) => {
         const inspecDataArr = JSON.parse(data);
         if (err) throw err
 
-        const toEdit = inspecDataArr.findIndex(el => el.city === req.body.id);
+        const toEdit = inspecDataArr.findIndex(el=>el.id === req.body.id);
         inspecDataArr[toEdit].notes.push({
-            name: req.body.name,
-            details: req.body.details,
+            issue: req.body.issue,
+            recomendations: req.body.recomendations,
             photo: req.body.photo
         })
         fs.writeFile(filename, JSON.stringify(inspecDataArr), (err) => {

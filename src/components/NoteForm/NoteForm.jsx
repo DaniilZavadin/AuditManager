@@ -2,23 +2,22 @@ import React, { useState } from 'react';
 import axios from "axios";
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 import './NoteForm.scss';
+import { useSelector } from 'react-redux';
 
 const NoteForm = () => {
   const navigate = useNavigate()
   const [file, setFile] = useState(null)
+  const id = useSelector(state=>state.currentInspectionId)
 
   const handleFileInput = (e) => {
     setFile(e.target.files[0])
   }
 
-  const id = useSelector((state) => state.inspectionId)
-
   const onSubmit = (e) => {
     e.preventDefault();
-    const name = e.target.name.value;
-    const details = e.target.details.value;
+    const issue = e.target.issue.value;
+    const recomendations = e.target.recomendations.value;
 
     //file uploading method
     const data = new FormData();
@@ -31,8 +30,8 @@ const NoteForm = () => {
       .then(res => {
         axios.post('//localhost:8000/addnote', {
           id: id,
-          name: name,
-          details: details,
+          issue: issue,
+          recomendations: recomendations,
           photo: Date.now() + res.data.filename
         })
           .then(res => {
@@ -47,17 +46,17 @@ const NoteForm = () => {
   return (
     <form id='creationForm' onSubmit={onSubmit}>
       <label>
-        Name:
+      Issue:
         <input
-          name="name"
+          name="issue"
           type="text"
           onChange={() => { }} />
       </label>
       <br />
       <label>
-        Details:
+      Recomendations:
         <input
-          name="details"
+          name="recomendations"
           type="text"
           onChange={() => { }} />
       </label>

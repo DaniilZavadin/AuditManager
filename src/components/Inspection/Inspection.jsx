@@ -4,12 +4,12 @@ import { setCurrentInspection } from '../../store/operations'
 import { useDispatch } from 'react-redux'
 import './Inspection.scss';
 
-const Inspection = ({ city, description, inspector }) => {
+const Inspection = ({ city, description, inspector, id }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch()
 
     const moveToNotes = () => {
-        dispatch(setCurrentInspection({ city: city, description: description, inspector: inspector }))
+        dispatch(setCurrentInspection(id))
         navigate('/noteslist')
     }
 

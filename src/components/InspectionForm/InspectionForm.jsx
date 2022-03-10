@@ -14,6 +14,7 @@ const InspectionForm = ({ onSuccess }) => {
     e.preventDefault();
     axios.post('//localhost:8000/addinspection',
       {
+        id: city + Date.now(),
         city: city,
         description: desc,
         inspector: inspector,

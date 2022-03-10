@@ -2,7 +2,7 @@ import { SET_INSPECTIONS_DATA, SET_CURRENT_INSPECTION } from './types';
 
 const initialState = {
     inspectionsData: [],
-    currentInspection: {}
+    currentInspectionId: {}
 };
 
 export const reducer = (state = initialState, action) => {
@@ -10,7 +10,7 @@ export const reducer = (state = initialState, action) => {
         case SET_INSPECTIONS_DATA:
             return { ...state, inspectionsData: action.payload };
         case SET_CURRENT_INSPECTION:
-            return { ...state, currentInspection: action.payload };
+            return { ...state, currentInspectionId: action.payload };
         default: return state
     }
 }

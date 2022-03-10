@@ -15,9 +15,9 @@ const InspectionsList = () => {
                 setInspections(res.data)
                 dispatch(setInspectionsData(res.data))
             })
-    }, [])
+    }, [dispatch])
 
-    const renderInspections = () => inspections.map(el => <Inspection city={el.city} description={el.description} inspector={el.inspector} />)
+    const renderInspections = () => inspections.map(el => <Inspection city={el.city} description={el.description} inspector={el.inspector} id={el.id} />)
 
     return (<div className="inspections-container">
         <Link to="/createinspection">+</Link>
