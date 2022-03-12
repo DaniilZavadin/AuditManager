@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom'
-import Note from '../components/Note/Note';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom'
+import axios from 'axios'
+import Note from '../components/Note/Note';
+
 
 const NoteList = () => {
-    const inspectionsData = useSelector(state => state.inspectionsData)
     const currInsp = useSelector(state => state.currentInspectionId)
     const [notes, setNotes] = useState([])
 
     useEffect(() => {
-        const dataForRender = inspectionsData.find(el => el.id === currInsp)
-        console.log(dataForRender.notes);
-        setNotes(dataForRender.notes)
-    }, [])
+        axios.get("http://localhost:8000/data")
+            .then(res => {
+                const dataForRender = res.data.find(el => el.id === currInsp)
+                setNotes(dataForRender.notes)
+            })
+    }, [currInsp])
 
     const renderNotes = () => notes.map(el => <Note issue={el.issue} photo={el.photo} recomendations={el.recomendations} />)
 

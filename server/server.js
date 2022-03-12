@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const app = express();
 
 app.use(cors());
+app.use(express.static('public'));
 const jsonParser = bodyParser.json()
 
 const storage = multer.diskStorage({
@@ -48,6 +49,8 @@ app.post('/addnote', jsonParser, (req, res) => {
     fs.readFile(filename, (err, data) => {
         const inspecDataArr = JSON.parse(data);
         if (err) throw err
+
+        console.log(req.body.photo);
 
         const toEdit = inspecDataArr.findIndex(el=>el.id === req.body.id);
         inspecDataArr[toEdit].notes.push({

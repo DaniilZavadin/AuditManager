@@ -32,7 +32,7 @@ const NoteForm = () => {
           id: id,
           issue: issue,
           recomendations: recomendations,
-          photo: Date.now() + res.data.filename
+          photo: res.data.filename
         })
           .then(res => {
             toast.success('Note added to you inspection!')
