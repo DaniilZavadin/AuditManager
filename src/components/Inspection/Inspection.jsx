@@ -15,9 +15,9 @@ const Inspection = ({ city, description, inspector, id }) => {
 
     return (
         <div className="inspection-wrapper" onClick={moveToNotes}>
-            <div className='inspection-wrapper__name'>{city}</div>
-            <div className='inspection-wrapper__name'>{description}</div>
-            <div className='inspection-wrapper__name'>{inspector}</div>
+            <div className='inspection-wrapper__info'>{city}</div>
+            <div className='inspection-wrapper__info'>{description}</div>
+            <div className='inspection-wrapper__info'>{inspector}</div>
         </div>
     )
 }

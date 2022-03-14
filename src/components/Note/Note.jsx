@@ -5,10 +5,12 @@ const Note = ({ issue, photo, recomendations }) => {
 
     console.log(photo);
     return (
-        <div className="inspection-wrapper">
-            <div className="inspection-info">{issue}</div>
-            <div className="inspection-info">{recomendations}</div>
-            <img className="inspection-info" src={`http://localhost:8000/${photo}`} alt="description" />
+        <div className="note-wrapper">
+            <div className="note-wrapper__info">{issue}</div>
+            <div className="note-wrapper__info">{recomendations}</div>
+            <div className="note-wrapper__info">
+                <img className="note-wrapper__image" src={`http://localhost:8000/${photo}`} alt="description" />
+            </div>
         </div>
     )
 }

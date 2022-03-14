@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import Inspection from '../components/Inspection/Inspection';
+import './pages.scss';
+
 
 const InspectionsList = () => {
     const [inspections, setInspections] = useState([])
@@ -16,7 +18,9 @@ const InspectionsList = () => {
     const renderInspections = () => inspections.map(el => <Inspection city={el.city} description={el.description} inspector={el.inspector} id={el.id} />)
 
     return (<div className="inspections-container">
-        <Link to="/createinspection">+</Link>
+        <Link to="/createinspection">
+            <img class='inspections-container__link' src='add.png' alt='add' />
+        </Link>
         {renderInspections()}
     </div >)
 }
