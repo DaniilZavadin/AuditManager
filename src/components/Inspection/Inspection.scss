@@ -1,6 +1,7 @@
 .inspection-wrapper{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    user-select: none;
     &:hover{
         background-color: rgb(231, 231, 231)    }
     &__info{

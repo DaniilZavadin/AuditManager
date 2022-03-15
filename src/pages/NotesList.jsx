@@ -13,13 +13,11 @@ const NoteList = () => {
     useEffect(() => {
         const fetchMyAPI = async () => {
             let response = await axios.get("http://localhost:8000/data")
-            console.log(response.data);
             response = response.data.find(el => el.id === currInsp)
-            console.log(response);
             setNotes(response.notes)
         }
         fetchMyAPI()
-    }, [])
+    }, [currInsp])
 
     const renderNotes = () => notes.map(el => <Note issue={el.issue} photo={el.photo} recomendations={el.recomendations} />)
 

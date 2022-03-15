@@ -2,8 +2,6 @@ import React from 'react';
 import './Note.scss';
 
 const Note = ({ issue, photo, recomendations }) => {
-
-    console.log(photo);
     return (
         <div className="note-wrapper">
             <div className="note-wrapper__info">{issue}</div>
