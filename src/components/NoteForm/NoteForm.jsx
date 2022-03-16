@@ -28,7 +28,7 @@ const NoteForm = () => {
     }
     axios.post('//localhost:8000/uploadfile', data)
       .then(res => {
-        axios.post('//localhost:8000/addnote', {
+        axios.post('//localhost:8000/note', {
           id: id,
           issue: issue,
           recomendations: recomendations,

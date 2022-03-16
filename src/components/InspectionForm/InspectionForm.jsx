@@ -12,7 +12,7 @@ const InspectionForm = ({ onSuccess }) => {
     const inspector = e.target.inspector.value;
 
     e.preventDefault();
-    axios.post('//localhost:8000/addinspection',
+    axios.post('//localhost:8000/inspection',
       {
         id: city + Date.now(),
         city: city,

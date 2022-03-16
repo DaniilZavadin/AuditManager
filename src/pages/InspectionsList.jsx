@@ -15,7 +15,7 @@ const InspectionsList = () => {
             })
     }, [])
 
-    const renderInspections = () => inspections.map(el => <Inspection city={el.city} description={el.description} inspector={el.inspector} id={el.id} />)
+    const renderInspections = () => inspections.map(el => <Inspection setInspections={setInspections} city={el.city} description={el.description} inspector={el.inspector} id={el.id} />)
 
     return (<div className="inspections-container">
         <Link to="/createinspection">
