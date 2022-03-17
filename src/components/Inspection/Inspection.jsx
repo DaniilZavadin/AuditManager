@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
 import { setCurrentInspection } from '../../store/operations'
 import { useDispatch } from 'react-redux'
+import { toast } from 'react-toastify';
 import './Inspection.scss';
 
 const Inspection = ({ setInspections, city, description, inspector, id }) => {
@@ -16,9 +17,13 @@ const Inspection = ({ setInspections, city, description, inspector, id }) => {
 
     const deleteInspection = (e) => {
         axios.put('//localhost:8000/inspection', { delete: true })
-            .than(res => {
-                setInspections(res.data)
+            .then(res => {
+                axios.get('//localhost:8000/data')
+                    .then(res => {
+                        setInspections(res.data)
+                    })
             })
+        toast.success('Insception succsessfuly deleted!')
         e.cancelBubble = true;
         if (e.stopPropagation) e.stopPropagation();
     }

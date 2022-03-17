@@ -1,11 +1,19 @@
 import React from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import './Note.scss';
 
-const Note = ({ issue, photo, recomendations }) => {
+const Note = ({ setNotes, issue, photo, recomendations, id }) => {
 
-    const deleteNote = () => {
-        axios.delete('//localhost:8000/note')
+    const deleteNote = (e) => {
+        axios.put('//localhost:8000/note', { delete: true })
+        axios.get('//localhost:8000/data')
+            .then(res => {
+                setNotes(res.data)
+            })
+        toast.success('Note succsessfuly deleted!')
+        e.cancelBubble = true;
+        if (e.stopPropagation) e.stopPropagation();
     }
 
     return (
@@ -14,15 +22,15 @@ const Note = ({ issue, photo, recomendations }) => {
             <div className="note-wrapper__info">{recomendations}</div>
             <div className="note-wrapper__info">
                 <img className="note-wrapper__image" src={`http://localhost:8000/${photo}`} alt="description" />
+                <img class='note-wrapper__delete' onClick={deleteNote} src="delete.png" alt="delete" />
             </div>
-            <img onClick={deleteNote} src="delete.png" alt="delete" />
         </div>
     )
 }
 
 Note.defaultProps = {
     issue: 'Unknown',
-    photo: "./undefined.jpg",
+    photo: "undefined.jpg",
     recomendations: 'Unknown',
 };
 

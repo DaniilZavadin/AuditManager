@@ -63,9 +63,26 @@ app.post('/note', jsonParser, (req, res) => {
     return res.status(200).send('ADD NOTE')
 });
 
-// app.delete('/note', jsonParser, (req, res) => {
-//     res.send('DELETE note')
-// })
+app.put('/note', jsonParser, (req, res) => {
+    fs.readFile(filename, (err, data) => { 
+        const inspecDataArr = JSON.parse(data);
+        if (err) throw err
+        const toEdit = inspecDataArr.findIndex(el => el.id === req.body.id);
+        if (req.body.delete) {
+            inspecDataArr.splice(toEdit, 1)
+        } else {
+            inspecDataArr[toEdit] = {
+                city: req.body.city,
+                description: req.body.description,
+                inspector: req.body.inspector
+            }
+        }
+        fs.writeFile(filename, JSON.stringify(inspecDataArr), (err) => {
+            if (err) throw err;
+        });
+    })
+    return res.status(200).send('EDITED NOTE')
+})
 
 app.put('/inspection', jsonParser, (req, res) => {
     fs.readFile(filename, (err, data) => {
@@ -73,7 +90,6 @@ app.put('/inspection', jsonParser, (req, res) => {
         if (err) throw err
 
         const toEdit = inspecDataArr.findIndex(el => el.id === req.body.id);
-        console.log(req.body)
         if (req.body.delete) {
             inspecDataArr.splice(toEdit, 1)
         } else {
