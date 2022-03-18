@@ -2,18 +2,24 @@ import React from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import './Note.scss';
+import { useSelector } from 'react-redux';
 
 const Note = ({ setNotes, issue, photo, recomendations, id }) => {
 
+    const inspecId = useSelector(state => state.currentInspectionId)
+
     const deleteNote = (e) => {
-        axios.put('//localhost:8000/note', { delete: true })
+        axios.put('//localhost:8000/note', {
+            delete: true,
+            noteId: id,
+            inspecId: inspecId
+        })
         axios.get('//localhost:8000/data')
             .then(res => {
-                setNotes(res.data)
+                const data = res.data.find(el => el.id === inspecId)
+                setNotes(data.notes)
             })
         toast.success('Note succsessfuly deleted!')
-        e.cancelBubble = true;
-        if (e.stopPropagation) e.stopPropagation();
     }
 
     return (

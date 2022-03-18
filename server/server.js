@@ -51,7 +51,9 @@ app.post('/note', jsonParser, (req, res) => {
         if (err) throw err
 
         const toEdit = inspecDataArr.findIndex(el => el.id === req.body.id);
+        const FDRN = Math.floor(1000 + Math.random() * 9000);
         inspecDataArr[toEdit].notes.push({
+            id: FDRN + req.body.id,
             issue: req.body.issue,
             recomendations: req.body.recomendations,
             photo: req.body.photo
@@ -62,27 +64,6 @@ app.post('/note', jsonParser, (req, res) => {
     })
     return res.status(200).send('ADD NOTE')
 });
-
-app.put('/note', jsonParser, (req, res) => {
-    fs.readFile(filename, (err, data) => { 
-        const inspecDataArr = JSON.parse(data);
-        if (err) throw err
-        const toEdit = inspecDataArr.findIndex(el => el.id === req.body.id);
-        if (req.body.delete) {
-            inspecDataArr.splice(toEdit, 1)
-        } else {
-            inspecDataArr[toEdit] = {
-                city: req.body.city,
-                description: req.body.description,
-                inspector: req.body.inspector
-            }
-        }
-        fs.writeFile(filename, JSON.stringify(inspecDataArr), (err) => {
-            if (err) throw err;
-        });
-    })
-    return res.status(200).send('EDITED NOTE')
-})
 
 app.put('/inspection', jsonParser, (req, res) => {
     fs.readFile(filename, (err, data) => {
@@ -104,6 +85,26 @@ app.put('/inspection', jsonParser, (req, res) => {
         });
     })
     return res.status(200).send('EDITED INSPECTION')
+})
+
+app.put('/note', jsonParser, (req, res) => {
+    fs.readFile(filename, (err, data) => {
+        const inspecDataArr = JSON.parse(data);
+        if (err) throw err
+
+        const inspecToEdit = inspecDataArr.findIndex(el => el.id === req.body.inspecId);
+        const noteToEdit = inspecDataArr[inspecToEdit].notes.findIndex(el => el.id === req.body.noteId);
+
+        if (req.body.delete) {
+            inspecDataArr[inspecToEdit].notes.splice(noteToEdit, 1)
+        } else {
+            return
+        }
+        fs.writeFile(filename, JSON.stringify(inspecDataArr), (err) => {
+            if (err) throw err;
+        });
+    })
+    return res.status(200).send('EDITED NOTE')
 })
 
 app.get('/data', function (req, res) {

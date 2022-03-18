@@ -16,7 +16,12 @@ const InspectionsList = () => {
     }, [])
 
     const renderInspections = () => {
-        return inspections.map(el => <Inspection setInspections={setInspections} city={el.city} description={el.description} inspector={el.inspector} id={el.id} />)
+        return inspections.map(el => <Inspection
+            setInspections={setInspections}
+            city={el.city}
+            description={el.description}
+            inspector={el.inspector}
+            id={el.id} />)
     }
 
     return (<div className="inspections-container">

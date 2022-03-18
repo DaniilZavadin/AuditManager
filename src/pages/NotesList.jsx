@@ -19,7 +19,13 @@ const NoteList = () => {
         fetchMyAPI()
     }, [currInsp])
 
-    const renderNotes = () => notes.map(el => <Note setNotes={setNotes} issue={el.issue} photo={el.photo} recomendations={el.recomendations} />)
+    const renderNotes = () => notes.map(el => <Note
+        setNotes={setNotes}
+        issue={el.issue}
+        photo={el.photo}
+        recomendations={el.recomendations}
+        id={el.id}
+    />)
 
     return (<div className="notes-container">
         <Link to="/inspections">

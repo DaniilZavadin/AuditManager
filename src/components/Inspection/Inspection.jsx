@@ -16,7 +16,7 @@ const Inspection = ({ setInspections, city, description, inspector, id }) => {
     }
 
     const deleteInspection = (e) => {
-        axios.put('//localhost:8000/inspection', { delete: true })
+        axios.put('//localhost:8000/inspection', { delete: true, id: id })
             .then(res => {
                 axios.get('//localhost:8000/data')
                     .then(res => {
