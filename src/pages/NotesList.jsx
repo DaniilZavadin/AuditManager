@@ -34,7 +34,7 @@ const NoteList = () => {
         <Link to="/createnote">
             <img class='notes-container__link' src='add.png' alt='add' />
         </Link>
-        {notes ? renderNotes() : setNotes([])}
+        {renderNotes()}
     </div >)
 }
 

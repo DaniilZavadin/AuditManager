@@ -8,17 +8,19 @@ const Note = ({ setNotes, issue, photo, recomendations, id }) => {
 
     const inspecId = useSelector(state => state.currentInspectionId)
 
-    const deleteNote = (e) => {
+    const deleteNote = () => {
         axios.put('//localhost:8000/note', {
             delete: true,
             noteId: id,
             inspecId: inspecId
+        }).then(res => {
+            axios.get('//localhost:8000/data')
+                .then(res => {
+                    const data = res.data.find(el => el.id === inspecId)
+                    console.log(data.notes);
+                    setNotes(data.notes)
+                })
         })
-        axios.get('//localhost:8000/data')
-            .then(res => {
-                const data = res.data.find(el => el.id === inspecId)
-                setNotes(data.notes)
-            })
         toast.success('Note succsessfuly deleted!')
     }
 
